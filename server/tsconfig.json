@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "target": "ES2020",
+    "moduleResolution": "nodenext", // Add this line
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./dist",
+    "strict": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": false,
+    "isolatedModules": true,
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["./src/*"],
+      "*": ["node_modules/*"]
+    }
+  }
+}

@@ -5,6 +5,8 @@ import cors from "cors";
 import helmet from "helmet";
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 import { notFoundHandler } from "./middlewares/notFoundHandler.middleware.js";
+import { db } from "./lib/db.js";
+import authRoute from "src/routes/auth.route.js";
 
 const app = express();
 
@@ -30,6 +32,7 @@ app.use(
 );
 
 // Routes
+app.use("/api/v1/auth", authRoute);
 
 // Error Handling Middleware
 app.use(errorHandler);
@@ -38,10 +41,21 @@ app.use(errorHandler);
 app.use(notFoundHandler);
 
 const PORT = process.env.PORT || 5000;
-app
-  .listen(PORT, () => {
-    logger.info(`Server is running on port ${PORT}`);
-  })
-  .on("error", (err) => {
-    logger.error("Error starting server:", err);
-  });
+
+const server = async () => {
+  const mongoURI = process.env.MONGO_URI;
+  if (!mongoURI) {
+    logger.error("MONGO_URI environment variable is not set.");
+    process.exit(1);
+  }
+  await db(mongoURI);
+  app
+    .listen(PORT, () => {
+      logger.info(`Server is running on port ${PORT}`);
+    })
+    .on("error", (err) => {
+      logger.error("Error starting server:", err);
+    });
+};
+
+server();

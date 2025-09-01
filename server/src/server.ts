@@ -1,5 +1,5 @@
 import express from "express";
-import logger from "src/utils/logger.js";
+import logger from "src/utils/logger.util.js";
 import morgan from "morgan";
 import cors from "cors";
 import helmet from "helmet";
@@ -7,6 +7,7 @@ import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 import { notFoundHandler } from "./middlewares/notFoundHandler.middleware.js";
 import { db } from "./lib/db.js";
 import authRoute from "src/routes/auth.route.js";
+import redis from "./lib/redis.js";
 
 const app = express();
 
@@ -49,6 +50,13 @@ const server = async () => {
     process.exit(1);
   }
   await db(mongoURI);
+  // Ensure Redis is connected
+  try {
+    await redis.ping();
+    logger.info("Connected to Redis");
+  } catch (error) {
+    logger.error("Error connecting to Redis:", error);
+  }
   app
     .listen(PORT, () => {
       logger.info(`Server is running on port ${PORT}`);

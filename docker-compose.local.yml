@@ -18,3 +18,9 @@ services:
       ME_CONFIG_BASICAUTH_ENABLED: true
       ME_CONFIG_BASICAUTH_USERNAME: root
       ME_CONFIG_BASICAUTH_PASSWORD: root
+
+  redis:
+    image: redis/redis-stack:latest
+    ports:
+      - "6379:6379" # Redis server
+      - "8001:8001" # RedisInsight UI

@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { errorResponse } from "src/utils/responses.js";
+import { errorResponse } from "src/utils/responses.util.js";
 import { fromError } from "zod-validation-error";
 
 // Define a custom error interface if you want to use custom properties

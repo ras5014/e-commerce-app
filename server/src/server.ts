@@ -8,12 +8,14 @@ import { notFoundHandler } from "./middlewares/notFoundHandler.middleware.js";
 import { db } from "./lib/db.js";
 import authRoute from "src/routes/auth.route.js";
 import redis from "./lib/redis.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
 app.use(helmet());
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: "10mb" })); // allows you to parse the body of the request
+app.use(cookieParser());
 
 const morganFormat = ":method :url :status :response-time ms";
 app.use(

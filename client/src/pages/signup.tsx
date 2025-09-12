@@ -1,6 +1,6 @@
+import SignUpForm from "@/components/register-form"
 import { GalleryVerticalEnd } from "lucide-react"
-
-import { LoginForm } from "@/components/login-form"
+import authImage from "@/assets/authImage.png"
 
 export default function SignUpPage() {
     return (
@@ -15,15 +15,15 @@ export default function SignUpPage() {
                     </a>
                 </div>
                 <div className="flex flex-1 items-center justify-center">
-                    <div className="w-full max-w-xs">
-                        <LoginForm />
+                    <div className="w-full max-w-lg">
+                        <SignUpForm />
                     </div>
                 </div>
             </div>
             <div className="bg-muted relative hidden lg:block">
                 <img
-                    src="/placeholder.svg"
-                    alt="Image"
+                    src={authImage}
+                    alt="Auth Image"
                     className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
                 />
             </div>

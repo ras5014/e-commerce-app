@@ -1,6 +1,6 @@
 import redis from "src/lib/redis.js";
 import User from "src/models/user.model.js";
-import { RegisterUserInput } from "src/types/auth.types.js";
+import { LoginUserInput, RegisterUserInput } from "src/types/auth.types.js";
 import {
   generateToken,
   storeRefreshToken,
@@ -23,6 +23,18 @@ export const registerUser = async (input: RegisterUserInput) => {
   await storeRefreshToken(user._id, refreshToken);
 
   return { user, accessToken, refreshToken };
+};
+
+export const loginUser = async (input: LoginUserInput) => {
+  const { email, password } = input;
+  const user = await User.findOne({ email });
+  if (user && (await user.comparePassword(password))) {
+    const { accessToken, refreshToken } = generateToken(user._id);
+    await storeRefreshToken(user._id, refreshToken);
+    return { user, accessToken, refreshToken };
+  } else {
+    throw new Error("Invalid email or password");
+  }
 };
 
 export const logoutUser = async (refreshToken: string) => {

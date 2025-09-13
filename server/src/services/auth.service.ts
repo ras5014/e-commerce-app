@@ -8,7 +8,7 @@ import {
 import jwt from "jsonwebtoken";
 
 export const registerUser = async (input: RegisterUserInput) => {
-  const { name, email, password, role } = input;
+  const { firstName, lastName, email, password, role } = input;
 
   // Check if user already exists
   const userExists = await User.findOne({ email });
@@ -16,7 +16,21 @@ export const registerUser = async (input: RegisterUserInput) => {
     throw new Error("User with this email already exists");
   }
 
-  const user = await User.create({ name, email, password, role });
+  const userDoc = await User.create({
+    firstName,
+    lastName,
+    email,
+    password,
+    role,
+  });
+
+  const user = {
+    firstName: userDoc.firstName,
+    lastName: userDoc.lastName,
+    email: userDoc.email,
+    role: userDoc.role,
+    _id: userDoc._id,
+  };
 
   const { accessToken, refreshToken } = generateToken(user._id);
   // You might want to store the refresh token in the database or send it as a cookie

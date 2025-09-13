@@ -16,11 +16,25 @@ export const RegisterFormSchema = z
     path: ["confirmPassword"],
   });
 
-export type RegisterUserInput = z.infer<typeof RegisterFormSchema>;
-
 export const LoginFormSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
   password: z.string().min(6, "Password is required"),
 });
 
+export const RegisterResponseSchema = z.object({
+  success: z.boolean(),
+  message: z.string(),
+  data: z
+    .object({
+      firstName: z.string(),
+      lastName: z.string(),
+      email: z.string().email(),
+      role: z.enum(["customer", "admin"]),
+      _id: z.string(),
+    })
+    .optional(),
+});
+
 export type LoginUserInput = z.infer<typeof LoginFormSchema>;
+export type RegisterUserInput = z.infer<typeof RegisterFormSchema>;
+export type RegisterResponseType = z.infer<typeof RegisterResponseSchema>;

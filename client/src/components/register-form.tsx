@@ -23,16 +23,28 @@ import { ArrowRight } from "lucide-react";
 import { RegisterFormSchema, type RegisterUserInput } from "@/types/auth.type";
 import { Link } from "react-router";
 import toast from "react-hot-toast";
+import { useMutation } from "@tanstack/react-query";
+import { registerUser } from "@/api/auth.api";
 
 export default function SignUpForm() {
-
     const form = useForm<RegisterUserInput>({
         resolver: zodResolver(RegisterFormSchema),
     });
 
+    const mutation = useMutation({
+        mutationFn: registerUser,
+        onSuccess: () => {
+            toast.success("Account created successfully!");
+        },
+        onError: (error: unknown) => {
+            console.error(error);
+            toast.error("Something went wrong");
+        }
+    })
+
     function onSubmit(values: RegisterUserInput) {
-        toast.success("Account created successfully!");
         console.log(values);
+        mutation.mutate(values);
     }
 
     function onReset() {

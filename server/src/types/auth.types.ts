@@ -5,7 +5,8 @@ In Zod, fields are required by default.
 To make a field optional, use .optional().
 */
 export const registerUserSchema = z.object({
-  name: z.string().min(1, "Name is required"),
+  firstName: z.string().min(1, "first name is required"),
+  lastName: z.string().min(1, "last name is required"),
   email: z.string().email("Invalid email address"),
   password: z.string().min(6, "Password must be at least 6 characters long"),
   cartItems: z.array(

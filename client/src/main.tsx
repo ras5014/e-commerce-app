@@ -4,6 +4,7 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import SignUpPage from './pages/signup';
 import DarkModeLayout from './layouts/darkmode-layout';
+import LoginPage from './pages/login';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         element: <SignUpPage />
+      },
+      {
+        path: "/login",
+        element: <LoginPage />
       }
     ]
   },

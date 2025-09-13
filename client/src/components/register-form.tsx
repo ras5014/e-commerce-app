@@ -21,6 +21,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { RegisterFormSchema, type RegisterUserInput } from "@/types/auth.type";
+import { Link } from "react-router";
+import toast from "react-hot-toast";
 
 export default function SignUpForm() {
 
@@ -29,6 +31,7 @@ export default function SignUpForm() {
     });
 
     function onSubmit(values: RegisterUserInput) {
+        toast.success("Account created successfully!");
         console.log(values);
     }
 
@@ -196,6 +199,11 @@ export default function SignUpForm() {
                     </form>
                 </Form>
             </CardContent>
+            <CardFooter className="flex justify-between">
+                <Link to="/login" className="text-sm underline">
+                    Already have an account? Sign In
+                </Link>
+            </CardFooter>
         </Card>
 
     );

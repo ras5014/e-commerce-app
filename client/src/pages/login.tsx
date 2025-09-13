@@ -1,6 +1,6 @@
 import { GalleryVerticalEnd } from "lucide-react"
-
-import { LoginForm } from "@/components/register-form"
+import authImage from "@/assets/authImage.png"
+import LoginForm from "@/components/login-form"
 
 export default function LoginPage() {
     return (
@@ -11,20 +11,20 @@ export default function LoginPage() {
                         <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
                             <GalleryVerticalEnd className="size-4" />
                         </div>
-                        Vibe Commerce
+                        <span className="text-lg font-bold">E-Comm</span>
                     </a>
                 </div>
                 <div className="flex flex-1 items-center justify-center">
-                    <div className="w-full max-w-xs">
+                    <div className="w-full max-w-lg">
                         <LoginForm />
                     </div>
                 </div>
             </div>
             <div className="bg-muted relative hidden lg:block">
                 <img
-                    src="/placeholder.svg"
-                    alt="Image"
-                    className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+                    src={authImage}
+                    alt="Auth Image"
+                    className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.7]"
                 />
             </div>
         </div>

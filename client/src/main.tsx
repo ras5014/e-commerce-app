@@ -3,11 +3,18 @@ import './index.css'
 import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import SignUpPage from './pages/signup';
+import DarkModeLayout from './layouts/darkmode-layout';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <SignUpPage />,
+    element: <DarkModeLayout />,
+    children: [
+      {
+        path: "/signup",
+        element: <SignUpPage />
+      }
+    ]
   },
 ]);
 

@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/form";
 import {
     Card,
-    CardAction,
     CardContent,
     CardDescription,
     CardFooter,
@@ -25,15 +24,28 @@ import { Link } from "react-router";
 import toast from "react-hot-toast";
 import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "@/api/auth.api";
+import { useDispatch } from 'react-redux'
+import { setUser } from "@/state/user/userSlice";
 
 export default function SignUpForm() {
+    const dispatch = useDispatch();
     const form = useForm<RegisterUserInput>({
         resolver: zodResolver(RegisterFormSchema),
     });
 
     const mutation = useMutation({
         mutationFn: registerUser,
-        onSuccess: () => {
+        onSuccess: (data) => {
+            // log the response data
+            dispatch(setUser({
+                firstName: data?.firstName ?? "",
+                lastName: data?.lastName ?? "",
+                email: data?.email ?? "",
+                role: data?.role ?? "customer",
+                _id: data?._id ?? "",
+                accessToken: "",
+                refreshToken: "",
+            }));
             toast.success("Account created successfully!");
         },
         onError: (error: unknown) => {

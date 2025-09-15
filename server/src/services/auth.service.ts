@@ -22,6 +22,7 @@ export const registerUser = async (input: RegisterUserInput) => {
     email,
     password,
     role,
+    cartItems: [],
   });
 
   const user = {
@@ -29,6 +30,7 @@ export const registerUser = async (input: RegisterUserInput) => {
     lastName: userDoc.lastName,
     email: userDoc.email,
     role: userDoc.role,
+    cartItems: userDoc.cartItems,
     _id: userDoc._id,
   };
 

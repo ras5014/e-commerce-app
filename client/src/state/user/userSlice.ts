@@ -6,9 +6,8 @@ export interface UserState {
   lastName: string;
   email: string;
   role: string;
+  cartItems: Array<unknown>;
   _id: string;
-  accessToken: string;
-  refreshToken: string;
 }
 
 const initialState: UserState = {
@@ -16,9 +15,8 @@ const initialState: UserState = {
   lastName: "",
   email: "",
   role: "",
+  cartItems: [],
   _id: "",
-  accessToken: "",
-  refreshToken: "",
 };
 
 export const userSlice = createSlice({

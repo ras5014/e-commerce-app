@@ -42,9 +42,8 @@ export default function SignUpForm() {
                 lastName: data?.lastName ?? "",
                 email: data?.email ?? "",
                 role: data?.role ?? "customer",
-                _id: data?._id ?? "",
-                accessToken: "",
-                refreshToken: "",
+                cartItems: data?.cartItems ?? [],
+                _id: data?._id ?? ""
             }));
             toast.success("Account created successfully!");
         },
@@ -215,9 +214,10 @@ export default function SignUpForm() {
                             <Button
                                 type="submit"
                                 className="col-span-12 col-start-auto flex items-center gap-2"
+                                disabled={mutation.isPending}
                             >
                                 Sign Up
-                                <ArrowRight className="h-4 w-4" />
+                                {mutation.isPending ? <Spinner /> : <ArrowRight className="h-4 w-4" />}
                             </Button>
                         </div>
                     </form>

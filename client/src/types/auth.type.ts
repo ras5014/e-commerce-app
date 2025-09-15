@@ -30,6 +30,7 @@ export const RegisterResponseSchema = z.object({
       lastName: z.string(),
       email: z.string().email(),
       role: z.enum(["customer", "admin"]),
+      cartItems: z.array(z.object({}).optional()),
       _id: z.string(),
     })
     .optional(),

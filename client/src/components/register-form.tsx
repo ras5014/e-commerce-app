@@ -14,6 +14,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import { Spinner } from '@/components/ui/shadcn-io/spinner';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
@@ -26,8 +27,10 @@ import { useMutation } from "@tanstack/react-query";
 import { registerUser } from "@/api/auth.api";
 import { useDispatch } from 'react-redux'
 import { setUser } from "@/state/user/userSlice";
+import { useNavigate } from "react-router";
 
 export default function SignUpForm() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const form = useForm<RegisterUserInput>({
         resolver: zodResolver(RegisterFormSchema),
@@ -46,6 +49,7 @@ export default function SignUpForm() {
                 _id: data?._id ?? ""
             }));
             toast.success("Account created successfully!");
+            navigate("/");
         },
         onError: (error: unknown) => {
             console.error(error);

@@ -7,6 +7,7 @@ import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 import { notFoundHandler } from "./middlewares/notFoundHandler.middleware.js";
 import { db } from "./lib/db.js";
 import authRoute from "src/routes/auth.route.js";
+import productRoute from "src/routes/product.router.js";
 import redis from "./lib/redis.js";
 import cookieParser from "cookie-parser";
 
@@ -41,6 +42,7 @@ app.use(
 
 // Routes
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/products", productRoute);
 
 // Error Handling Middleware
 app.use(errorHandler);

@@ -1,6 +1,6 @@
 import redis from "src/lib/redis.js";
 import User from "src/models/user.model.js";
-import { LoginUserInput, RegisterUserInput } from "src/types/auth.types.js";
+import { LoginUserInput, RegisterUserInput } from "src/types/auth.type.js";
 import {
   generateToken,
   storeRefreshToken,

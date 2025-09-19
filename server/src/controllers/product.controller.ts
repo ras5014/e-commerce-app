@@ -40,3 +40,57 @@ export const createProduct = async (
     next(error);
   }
 };
+
+export const deleteProduct = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const product = await productService.deleteProduct(req.params.id);
+    successResponse(res, product, 200, "Product deleted successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getProductsByCategory = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const products = await productService.getProductsByCategory(
+      req.params.category
+    );
+    successResponse(res, products, 200, "Products fetched successfully");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const toggleFeaturedProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const product = await productService.toggleFeaturedProducts(req.params.id);
+    successResponse(res, product, 200, "Product featured status toggled");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getRecommendedProducts = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const products = await productService.getRecommendedProducts();
+    successResponse(res, products, 200, "Recommended products fetched");
+  } catch (error) {
+    next(error);
+  }
+};

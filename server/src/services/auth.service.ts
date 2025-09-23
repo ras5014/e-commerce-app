@@ -43,8 +43,16 @@ export const registerUser = async (input: RegisterUserInput) => {
 
 export const loginUser = async (input: LoginUserInput) => {
   const { email, password } = input;
-  const user = await User.findOne({ email });
-  if (user && (await user.comparePassword(password))) {
+  const userDoc = await User.findOne({ email });
+  if (userDoc && (await userDoc.comparePassword(password))) {
+    const user = {
+      firstName: userDoc.firstName,
+      lastName: userDoc.lastName,
+      email: userDoc.email,
+      role: userDoc.role,
+      cartItems: userDoc.cartItems,
+      _id: userDoc._id,
+    };
     const { accessToken, refreshToken } = generateToken(user._id);
     await storeRefreshToken(user._id, refreshToken);
     return { user, accessToken, refreshToken };

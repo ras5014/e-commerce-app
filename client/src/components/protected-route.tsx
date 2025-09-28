@@ -13,8 +13,15 @@ export default function ProtectedRoute() {
     const mutation = useMutation({
         mutationFn: getProfile,
         onSuccess: (data) => {
-            dispatch(setUser(data));
-            toast("Welcome back " + data.firstName);
+            dispatch(setUser({
+                firstName: data?.firstName ?? "",
+                lastName: data?.lastName ?? "",
+                email: data?.email ?? "",
+                role: data?.role ?? "customer",
+                cartItems: data?.cartItems ?? [],
+                _id: data?._id ?? ""
+            }));
+            toast("Welcome back " + (data?.firstName ?? ""));
         },
         onError: (error) => {
             console.error("Error fetching profile:", error);
@@ -26,7 +33,8 @@ export default function ProtectedRoute() {
 
     useEffect(() => {
         mutation.mutate();
-    }, [mutation, user]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     if (mutation.isPending) {
         return <div>Loading...</div>;
@@ -36,7 +44,8 @@ export default function ProtectedRoute() {
         return navigate("/login");
     }
 
-    if (user._id && mutation.isSuccess && mutation.data._id) {
+    if (user._id && mutation.isSuccess) {
+        console.log(mutation.data?._id);
         return <Outlet />
     }
 

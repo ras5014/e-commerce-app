@@ -22,15 +22,46 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { LoginFormSchema, type LoginUserInput } from "@/types/auth.type";
 import { Link } from "react-router";
+import { useMutation } from "@tanstack/react-query";
+import { useDispatch } from "react-redux";
+import { setUser } from "@/state/user/userSlice";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router";
+import { loginUser } from "@/api/auth.api";
 
 export default function LoginForm() {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const form = useForm<LoginUserInput>({
         resolver: zodResolver(LoginFormSchema),
     });
 
+    const mutation = useMutation({
+        mutationFn: loginUser,
+        onSuccess: (data) => {
+            // log the response data
+            dispatch(setUser({
+                firstName: data?.firstName ?? "",
+                lastName: data?.lastName ?? "",
+                email: data?.email ?? "",
+                role: data?.role ?? "customer",
+                cartItems: data?.cartItems ?? [],
+                _id: data?._id ?? ""
+            }));
+            toast.success("Account created successfully!");
+            navigate("/");
+        },
+        onError: (error: unknown) => {
+            console.error(error);
+            toast.error("Something went wrong");
+        }
+    })
+
     function onSubmit(values: LoginUserInput) {
         console.log(values);
+        mutation.mutate(values);
     }
 
     function onReset() {

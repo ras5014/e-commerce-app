@@ -9,6 +9,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { store } from './state/store';
 import { Provider } from 'react-redux'
+import ProtectedRoute from './components/protected-route';
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,15 @@ const router = createBrowserRouter([
     element: <DarkModeLayout />,
     children: [
       {
+        element: <ProtectedRoute />,
+        children: [
+          {
+            index: true,
+            element: <div>Home Page</div>
+          }
+        ]
+      },
+      {
         path: "/signup",
         element: <SignUpPage />
       },
@@ -25,11 +35,7 @@ const router = createBrowserRouter([
         path: "/login",
         element: <LoginPage />
       },
-      {
-        index: true,
-        element: <div>Home Page</div>
-      }
-    ]
+    ],
   },
 ]);
 

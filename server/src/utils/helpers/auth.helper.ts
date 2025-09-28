@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import redis from "src/lib/redis.js";
 import { Response } from "express";
-import mongoose, { type ObjectId } from "mongoose";
+import mongoose from "mongoose";
 
 export const generateToken = (userId: mongoose.Types.ObjectId) => {
   const accessToken = jwt.sign(

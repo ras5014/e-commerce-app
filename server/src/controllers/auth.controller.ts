@@ -102,3 +102,15 @@ export const refreshAccessTokenController = async (
     next(error);
   }
 };
+
+export const getProfile = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    successResponse(res, req.user, 200, "User profile fetched successfully");
+  } catch (error) {
+    next(error);
+  }
+};

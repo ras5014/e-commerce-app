@@ -18,10 +18,10 @@ export const RegisterFormSchema = z
 
 export const LoginFormSchema = z.object({
   email: z.string().min(1, "Email is required").email("Invalid email address"),
-  password: z.string().min(6, "Password is required"),
+  password: z.string().min(6, "Password must be at least 6 characters long"),
 });
 
-export const RegisterResponseSchema = z.object({
+export const UserResponseSchema = z.object({
   success: z.boolean(),
   message: z.string(),
   data: z
@@ -38,4 +38,4 @@ export const RegisterResponseSchema = z.object({
 
 export type LoginUserInput = z.infer<typeof LoginFormSchema>;
 export type RegisterUserInput = z.infer<typeof RegisterFormSchema>;
-export type RegisterResponseType = z.infer<typeof RegisterResponseSchema>;
+export type UserResponseType = z.infer<typeof UserResponseSchema>;

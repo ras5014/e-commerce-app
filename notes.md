@@ -10,3 +10,9 @@
 ```js
 featuredProducts = await Product.find({ isFeatured: true }).lean();
 ```
+
+The minus sign (-) before password means "do not include this field" in the result.
+So, the user object will have all fields except password
+```js
+const user = await User.findById(decoded.userId).select("-password");
+```

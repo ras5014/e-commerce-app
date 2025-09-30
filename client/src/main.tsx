@@ -10,6 +10,8 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { store } from './state/store';
 import { Provider } from 'react-redux'
 import ProtectedRoute from './components/protected-route';
+import Home from './pages/home';
+import NavbarLayout from './layouts/navbar-layout';
 
 const queryClient = new QueryClient();
 
@@ -22,8 +24,13 @@ const router = createBrowserRouter([
         element: <ProtectedRoute />,
         children: [
           {
-            index: true,
-            element: <div>Home Page</div>
+            element: <NavbarLayout />,
+            children: [
+              {
+                index: true,
+                element: <Home />
+              }
+            ]
           }
         ]
       },

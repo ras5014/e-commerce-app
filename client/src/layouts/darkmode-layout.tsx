@@ -7,7 +7,7 @@ export default function DarkModeLayout() {
     return (
         <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
             <Toaster />
-            <div className="top-4 right-4 fixed z-50">
+            <div className="top-4 right-4 fixed z-50 items-center">
                 <ModeToggle />
             </div>
             <Outlet />

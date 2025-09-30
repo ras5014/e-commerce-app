@@ -21,7 +21,6 @@ export default function ProtectedRoute() {
                 cartItems: data?.cartItems ?? [],
                 _id: data?._id ?? ""
             }));
-            toast("Welcome back " + (data?.firstName ?? ""));
         },
         onError: (error) => {
             console.error("Error fetching profile:", error);

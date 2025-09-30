@@ -50,7 +50,7 @@ export default function LoginForm() {
                 cartItems: data?.cartItems ?? [],
                 _id: data?._id ?? ""
             }));
-            toast.success("Account created successfully!");
+            toast.success("Logged in successfully!");
             navigate("/");
         },
         onError: (error: unknown) => {

@@ -12,9 +12,9 @@ import { Provider } from 'react-redux'
 import ProtectedRoute from './components/protected-route';
 import Home from './pages/home';
 import NavbarLayout from './layouts/navbar-layout';
+import AdminRoute from './components/admin-route';
 
 const queryClient = new QueryClient();
-
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,7 +29,17 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <Home />
-              }
+              },
+            ]
+          },
+          {
+            path: "/admin",
+            element: <AdminRoute />,
+            children: [
+              {
+                index: true,
+                element: <div>Admin Dashboard</div>
+              },
             ]
           }
         ]
@@ -41,7 +51,7 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <LoginPage />
-      },
+      }
     ],
   },
 ]);

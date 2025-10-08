@@ -3,7 +3,6 @@ import type { RootState } from "@/state/store";
 import { setUser } from "@/state/user/userSlice";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect } from "react";
-import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useNavigate } from "react-router";
 
@@ -24,7 +23,6 @@ export default function ProtectedRoute() {
         },
         onError: (error) => {
             console.error("Error fetching profile:", error);
-            toast("Something went wrong");
         }
     });
 

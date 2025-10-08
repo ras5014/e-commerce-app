@@ -27,6 +27,14 @@ export const loginUser = async (data: LoginUserInput) => {
   return res.data.data;
 };
 
+export const logoutUser = async () => {
+  const res = await axiosInstance.post("/v1/auth/logout");
+  if (res.data?.success === false) {
+    throw new Error(res.data?.message || "Logout failed");
+  }
+  return res.data.message;
+};
+
 export const getProfile = async () => {
   const res = await axiosInstance.get<UserResponseType>("/v1/auth/profile");
   if (res.data?.success === false) {

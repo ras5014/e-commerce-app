@@ -26,8 +26,40 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { Button } from "@/components/ui/button"
 import { Search } from 'lucide-react';
+import { useMutation } from "@tanstack/react-query"
+import { logoutUser } from "@/api/auth.api"
+import { useDispatch } from "react-redux"
+import { setUser } from "@/state/user/userSlice"
+import toast from "react-hot-toast"
+import { useNavigate } from "react-router"
+import { useSelector } from "react-redux"
+import type { RootState } from "@/state/store"
 
 export default function NavbarLayout() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const user = useSelector((state: RootState) => state.user);
+
+    const mutation = useMutation({
+        mutationFn: logoutUser,
+        onSuccess: (data) => {
+            dispatch(setUser({
+                firstName: "",
+                lastName: "",
+                email: "",
+                role: "",
+                cartItems: [],
+                _id: "",
+            }));
+            toast.success("Logged out successfully");
+            navigate("/login");
+        },
+        onError: (error) => {
+            console.error("Error logging out:", error);
+            toast.error("Something went wrong");
+        }
+    })
     return (
         <div className="w-full border-b py-4 px-20 flex justify-between items-center">
 
@@ -72,6 +104,7 @@ export default function NavbarLayout() {
                 </div>
             </div>
             <div className="flex gap-8 items-center">
+                {user?.role === "admin" && <Button><Link to={"/admin"}>Dashboard</Link></Button>}
 
                 <Popover>
                     <PopoverTrigger><User className="navbar-focus" /></PopoverTrigger>
@@ -90,15 +123,19 @@ export default function NavbarLayout() {
                             <li className="navbar-focus font-semibold">
                                 <Link to="/edit-profile">Edit Profile</Link>
                             </li>
-                            <li className="navbar-focus font-semibold">
-                                <Link to="/logout">Logout</Link>
+                            <li className="font-semibold mt-2">
+                                <form action="" onSubmit={(e) => { e.preventDefault(); mutation.mutate() }} method="post">
+                                    <Button type="submit" variant="destructive" className="cursor-pointer w-full">Logout</Button>
+                                </form>
                             </li>
                         </ul>
                     </PopoverContent>
                 </Popover>
 
                 <HoverCard>
-                    <HoverCardTrigger><ShoppingCart className="navbar-focus" /></HoverCardTrigger>
+                    <HoverCardTrigger>
+                        <ShoppingCart className="navbar-focus" />
+                    </HoverCardTrigger>
                     <HoverCardContent className="mt-4 mr-4">
                         List Cart Items will be shown here
                     </HoverCardContent>
